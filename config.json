@@ -1,0 +1,32 @@
+{
+    "huggingface_hub_token":"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",  
+    "dataset_name":"Rajan-Mahato/STT_Train_dataset",
+    "batch_size":50,
+
+    "concatenate_only_existings_dataset":false,
+
+    "make_change_on_columns":false,
+    "make_speaker_id_same": false,
+    "make_speaker_id_same_value":7,
+    
+    
+    "generate_specific_new_datas":false,
+    "start_end_value":[0,250],
+    
+    "concatenate_existing_dataset_with_above_generate_dataset":false,
+    "existing_dataset_names":["procit002/generate_and_existing_dataset","procit002/generate_and_existing_dataset_1"],
+
+    "should_filter":false,
+    "should_filter_gender":false,
+    "should_filter_gender_param":["female"],
+    "should_filter_accent":true,
+    "should_filter_accent_param":["NL","AN"],
+    "should_filter_language":true,
+    "should_filter_language_param":["nl"],
+    "should_filter_speaker_name":false,
+    "should_filter_speaker_name_param":["conny001","test"],
+    "should_filter_sentence_containing_word":false,
+    "should_filter_sentence_containing_word_param":["postcode"]
+    
+}
+

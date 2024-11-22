@@ -1,0 +1,111 @@
+#code to run on server
+python3 main.py --config config.json
+
+python3 main.py --config config.json >log.txt 2>&1 &   
+(it is to run code offline , we use '>log.txt 2>&1 & ')
+
+nohup python3 main.py --config config.json >log.txt 2>&1 &
+
+
+
+//This is the json file mentioned in 'config.json'
+{
+    "huggingface_hub_token":"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",  
+    "dataset_name":"procit002/eeeeee",
+    "batch_size":5000,
+
+    "make_change_on_columns":true,
+    "make_speaker_id_same": false,
+    "make_speaker_id_same_value":"8",
+
+    "append_only_new_datas":false,
+    "start_end_value":[100,115],
+    "existing_dataset_name":"procit002/cccccc",
+    "new_dataset_name":"procit002/new_dataset",
+
+
+    "should_filter":true,
+    "should_filter_gender":false,
+    "should_filter_gender_param":["male"],
+    "should_filter_accent":false,
+    "should_filter_accent_param":["Nepali"],
+    "should_filter_language":false,
+    "should_filter_language_param":["english"],
+    "should_filter_speaker_name":false,
+    "should_filter_speaker_name_param":["saskia001","conny001"],
+    "should_filter_sentence_containing_word":true,
+    "should_filter_sentence_containing_word_param":["huisnummer"]
+}
+
+
+//Explanation of above JSON
+
+// "huggingface_hub_token" => name of the huggingface where you want to push the dataset
+
+// "dataset_name" => name for the dataset
+
+// "batch_size" => specify the number of row you want to create for each batch. if we mention batch_size = 1000, 
+   then if there is 3600 data then, there will be four dataset will be created. for first there will be 1000, for second 100, 
+   for third 100, for four remaining(i.e. 600)
+
+
+// "make_change_on_coulumns" => if we want to make change on columns of dataset, set it to true. e.g. "make_change_on_columns":true,
+                                if it is false then speaker_id remains same as original
+
+// "make_speaker_id_same" => if we want to make all sepaker it to unique value then we must set it true and set the "make_speaker_id_same_value" value in string format.  e.g "make_speaker_id_same": true
+                               if "make_change_on_coulumns" = true and "make_speaker_id_same" = false , then speaker_id = 'interger number' starting from 1.
+
+// "make_speaker_id_same_value" => put the string value for this. It will be the speaker Id in string format.  e.g. "make_speaker_id_same_value":"2"
+
+//"append_only_new_datas" => if just want to update specific range of dataset then set it to 'true', if we set it false , Dataset will be created from all the available data will with the name 'dataset_name' in config.json
+                             e.g "append_only_new_datas":false
+
+//"start_end_value" => if we want specif range of data, we put the interger array here , containing two value. The first one is for starting range and second one is for ending range.
+                       e.g. "start_end_value":[100,115]
+
+//"existing_dataset_name" => if we set "append_only_new_datas" to TRUE, it means we generate the specified range of new dataset and concatanate it with existing dataset. The name for existing dataset is config["existing_dataset_name"], 
+                           The name for generated specified range of  dataset is config["dataset_name"], and The name for Concatanated Dataset is config["new_dataset_name"]
+                        e.g. existing_dataset_name":"procit002/cccccc"
+                     
+//"new_dataset_name" => if we set "append_only_new_datas" to TRUE,it means we are concatenating specified range of dataset with existing dataset. This is the name for the concataned dataset from existing dataset to specified range of dataset.
+                        e.g "new_dataset_name":"procit002/new_dataset"
+
+
+
+//"should_filter" => if we set it true , we can filter the dataset according to gender,accent,language,speaker_name,text etc
+                        e.g. "should_filter":true
+
+//"should_filter_gender" => if we set it true, we can filter according to gender. This is boolean value
+                        e.g. "should_filter_gender":false,
+                  
+//"should_filter_gender_param" => This is a list of string. Here we mention the different type of gender to filter the dataset.
+                        e.g "should_filter_gender_param":["male"]
+
+//"should_filter_accent" => if we set it true, we can filter according to accent. This is boolean value
+                        e.g "should_filter_accent":false
+    
+//"should_filter_accent_param" => This is a list of string. Here we mention the different type of accent to filter the dataset.
+                        e.g. "should_filter_accent_param":["Nepali"]
+
+//"should_filter_language" => if we set it true, we can filter according to language. This is boolean value
+                        e.g. "should_filter_language":false
+                  
+//"should_filter_language_param" => This is a list of string. Here we mention the different languages to filter the dataset.
+                        e.g. "should_filter_language_param":["english"]
+
+
+//"should_filter_speaker_name" => if we set it true, we can filter according to speaker_name. This is boolean value
+                        e.g. "should_filter_speaker_name":false
+
+//"should_filter_speaker_name_param" => This is a list of string. Here we mention the different speaker_name to filter the dataset.
+                        e.g. "should_filter_speaker_name_param":["saskia001","conny001"]
+
+//"should_filter_sentence_containing_word" => if we set it true, we can filter according to specific text. This is boolean value
+                        e.g. "should_filter_sentence_containing_word":true,
+
+//"should_filter_sentence_containing_word_param" => This is a list of string. Here we mention the different word to filter in the dataset.
+                        e.g. If we want to separate the dataset containing list of 'huisnummer' word , "should_filter_sentence_containing_word_param":["huisnummer"]
+
+    
+    
+    
